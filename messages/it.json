@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Home",
+    "plans": "Piani",
+    "guides": "Guide",
+    "ai_consultant": "Consulente IA",
+    "pitch": "Pitch",
+    "radar": "Radar",
+    "market_research": "Ricerca di mercato",
+    "financials": "Finanze",
+    "formation": "Formazione",
+    "upgrade": "Aggiorna",
+    "help": "Aiuto",
+    "account": "Account",
+    "settings": "Impostazioni",
+    "logout": "Disconnetti",
+    "new_company": "Nuova azienda",
+    "current_company": "Azienda attuale",
+    "initial_scenario": "Scenario iniziale"
+  },
+  "dashboard": {
+    "welcome": "Benvenuto,",
+    "upgrade_banner": "Esegui l'upgrade per ottenere il business plan completo",
+    "upgrade_button": "Aggiorna",
+    "tool_business_plan": "Piano aziendale",
+    "tool_business_plan_sub": "4 giorni fa",
+    "tool_financials": "Finanze",
+    "tool_financials_sub": "4 giorni fa",
+    "tool_pitch": "Pitch Deck",
+    "tool_pitch_sub": "Ottieni finanziamenti e impressiona i partner",
+    "tool_radar": "Radar",
+    "tool_radar_sub": "Tieni traccia di concorrenti, notizie, social media ed eventi locali",
+    "tool_guides": "Guide",
+    "tool_guides_sub": "Guide personalizzate generate per te",
+    "tool_market_research": "Ricerca di mercato",
+    "tool_market_research_sub": "Dati demografici, personas e benchmark del settore",
+    "formation_section": "Formazione",
+    "formation_heading": "Avvia la tua LLC con fiducia.",
+    "formation_desc": "Forma la tua LLC per rendere ufficiale la tua attività e proteggere i tuoi beni personali. Scegli la conformità senza preoccupazioni e rilassati. Ci assicureremo che tu sia sempre in regola.",
+    "formation_cta": "Vai a Formazione"
+  },
+  "help": {
+    "hero_title": "Consigli e risposte dal team Venturekit",
+    "search_placeholder": "Cerca articoli...",
+    "footer_powered": "Utilizziamo Intercom",
+    "by": "Di",
+    "articles": "articoli",
+    "cards": {
+      "quick_guides_title": "Guide rapide e facili",
+      "quick_guides_desc": "Impara le basi qui",
+      "business_plan_title": "Rendi il tuo piano aziendale davvero tuo!",
+      "business_plan_desc": "Esplora le funzionalità avanzate",
+      "financials_title": "Finanze del piano aziendale",
+      "financials_desc": "Come modificare le informazioni nella sezione Finanziaria",
+      "account_mgmt_title": "Gestione account",
+      "account_mgmt_desc": "Abbonamenti, fatturazione e crediti",
+      "troubleshoot_title": "Risoluzione problemi",
+      "troubleshoot_desc": "Soluzioni semplici per problemi tecnici di base.",
+      "formation_title": "Formazione",
+      "formation_desc": "Informazioni sui nostri servizi di costituzione LLC",
+      "additional_title": "Risorse aggiuntive",
+      "additional_desc": "Trova informazioni su tutte le funzionalità extra",
+      "contact_title": "Contattaci",
+      "contact_desc": "I nostri punti di contatto"
+    }
+  },
+  "account": {
+    "title": "Account",
+    "subtitle": "Gestisci le impostazioni del tuo account.",
+    "profile": {
+      "title": "Profilo",
+      "email_label": "Email:",
+      "email_hint": "Per modificare la tua email, aggiungi prima una password.",
+      "google_enabled": "Accesso con Google abilitato",
+      "add_password": "Aggiungi password",
+      "language_label": "Lingua"
+    },
+    "subscription": {
+      "title": "Abbonamento",
+      "free_plan_text": "Sei nel piano gratuito. Esegui l'upgrade per accedere a tutte le funzionalità.",
+      "upgrade_button": "Aggiorna"
+    },
+    "contact_support": {
+      "title": "Contatta il supporto",
+      "description": "Siamo qui per aiutarti.",
+      "button": "Contatta il supporto"
+    },
+    "danger_zone": {
+      "title": "Zona pericolosa",
+      "description": "L'eliminazione del tuo account elimina definitivamente tutti i tuoi dati.",
+      "delete_button": "Elimina account"
+    },
+    "password_modal": {
+      "title": "Aggiungi password",
+      "placeholder": "Password",
+      "submit": "Invia"
+    },
+    "delete_modal": {
+      "title": "Sei assolutamente sicuro?",
+      "description": "Questa azione non può essere annullata. Eliminerà definitivamente il tuo account e i tuoi dati dai nostri server.",
+      "cancel": "Annulla",
+      "continue": "Continua"
+    }
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsche",
+    "it": "Italiano",
+    "pt": "Português"
+  },
+  "common": {
+    "close": "Chiudi",
+    "save": "Salva",
+    "loading": "Caricamento...",
+    "error": "Qualcosa è andato storto",
+    "success": "Successo"
+  }
+}

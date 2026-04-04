@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "plans": "Pläne",
+    "guides": "Leitfäden",
+    "ai_consultant": "KI-Berater",
+    "pitch": "Pitch",
+    "radar": "Radar",
+    "market_research": "Marktforschung",
+    "financials": "Finanzen",
+    "formation": "Gründung",
+    "upgrade": "Upgraden",
+    "help": "Hilfe",
+    "account": "Konto",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "new_company": "Neues Unternehmen",
+    "current_company": "Aktuelles Unternehmen",
+    "initial_scenario": "Erstszenario"
+  },
+  "dashboard": {
+    "welcome": "Willkommen,",
+    "upgrade_banner": "Upgraden Sie für den vollständigen Geschäftsplan",
+    "upgrade_button": "Upgraden",
+    "tool_business_plan": "Geschäftsplan",
+    "tool_business_plan_sub": "vor 4 Tagen",
+    "tool_financials": "Finanzen",
+    "tool_financials_sub": "vor 4 Tagen",
+    "tool_pitch": "Pitch-Deck",
+    "tool_pitch_sub": "Finanzierung sichern und Partner beeindrucken",
+    "tool_radar": "Radar",
+    "tool_radar_sub": "Wettbewerber, Nachrichten, Social Media und lokale Ereignisse verfolgen",
+    "tool_guides": "Leitfäden",
+    "tool_guides_sub": "Maßgeschneiderte Leitfäden für Sie",
+    "tool_market_research": "Marktforschung",
+    "tool_market_research_sub": "Zielgruppendemografie, Personas und Branchen-Benchmarks",
+    "formation_section": "Gründung",
+    "formation_heading": "Gründen Sie Ihre LLC mit Zuversicht.",
+    "formation_desc": "Gründen Sie Ihre LLC, um Ihr Unternehmen offiziell zu machen und Ihr Privatvermögen zu schützen. Wählen Sie stressfreie Compliance und lehnen Sie sich zurück. Wir sorgen dafür, dass Sie immer in gutem Zustand sind.",
+    "formation_cta": "Zur Gründung"
+  },
+  "help": {
+    "hero_title": "Ratschläge und Antworten vom Venturekit-Team",
+    "search_placeholder": "Artikel suchen...",
+    "footer_powered": "Wir nutzen Intercom",
+    "by": "Von",
+    "articles": "Artikel",
+    "cards": {
+      "quick_guides_title": "Schnelle und einfache Anleitungen",
+      "quick_guides_desc": "Lernen Sie die Grundlagen hier",
+      "business_plan_title": "Machen Sie Ihren Geschäftsplan wirklich einzigartig!",
+      "business_plan_desc": "Tauchen Sie in erweiterte Funktionen ein",
+      "financials_title": "Finanzen des Geschäftsplans",
+      "financials_desc": "Wie Sie Informationen im Finanzbereich bearbeiten",
+      "account_mgmt_title": "Kontoverwaltung",
+      "account_mgmt_desc": "Abonnements, Abrechnung und Credits",
+      "troubleshoot_title": "Fehlerbehebung",
+      "troubleshoot_desc": "Einfache Lösungen für grundlegende technische Probleme.",
+      "formation_title": "Gründung",
+      "formation_desc": "Informationen zu unseren LLC-Gründungsdienstleistungen",
+      "additional_title": "Zusätzliche Ressourcen",
+      "additional_desc": "Finden Sie Informationen zu allen zusätzlichen Funktionen",
+      "contact_title": "Kontaktieren Sie uns",
+      "contact_desc": "Unsere Kontaktpunkte"
+    }
+  },
+  "account": {
+    "title": "Konto",
+    "subtitle": "Verwalten Sie Ihre Kontoeinstellungen.",
+    "profile": {
+      "title": "Profil",
+      "email_label": "E-Mail:",
+      "email_hint": "Um Ihre E-Mail zu ändern, fügen Sie zuerst ein Passwort hinzu.",
+      "google_enabled": "Anmeldung mit Google aktiviert",
+      "add_password": "Passwort hinzufügen",
+      "language_label": "Sprache"
+    },
+    "subscription": {
+      "title": "Abonnement",
+      "free_plan_text": "Sie nutzen den kostenlosen Plan. Upgraden Sie für Zugang zu allen Funktionen.",
+      "upgrade_button": "Upgraden"
+    },
+    "contact_support": {
+      "title": "Support kontaktieren",
+      "description": "Wir sind hier, um zu helfen.",
+      "button": "Support kontaktieren"
+    },
+    "danger_zone": {
+      "title": "Gefahrenzone",
+      "description": "Das Löschen Ihres Kontos löscht alle Ihre Daten dauerhaft.",
+      "delete_button": "Konto löschen"
+    },
+    "password_modal": {
+      "title": "Passwort hinzufügen",
+      "placeholder": "Passwort",
+      "submit": "Absenden"
+    },
+    "delete_modal": {
+      "title": "Sind Sie absolut sicher?",
+      "description": "Diese Aktion kann nicht rückgängig gemacht werden. Ihr Konto und alle Daten werden dauerhaft gelöscht.",
+      "cancel": "Abbrechen",
+      "continue": "Fortfahren"
+    }
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsche",
+    "it": "Italiano",
+    "pt": "Português"
+  },
+  "common": {
+    "close": "Schließen",
+    "save": "Speichern",
+    "loading": "Laden...",
+    "error": "Etwas ist schiefgelaufen",
+    "success": "Erfolg"
+  }
+}

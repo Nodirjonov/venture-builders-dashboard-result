@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "plans": "Plans",
+    "guides": "Guides",
+    "ai_consultant": "Consultant IA",
+    "pitch": "Pitch",
+    "radar": "Radar",
+    "market_research": "Étude de marché",
+    "financials": "Finances",
+    "formation": "Formation",
+    "upgrade": "Mettre à niveau",
+    "help": "Aide",
+    "account": "Compte",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
+    "new_company": "Nouvelle entreprise",
+    "current_company": "Entreprise actuelle",
+    "initial_scenario": "Scénario initial"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue,",
+    "upgrade_banner": "Passez à la version supérieure pour obtenir le plan d'affaires complet",
+    "upgrade_button": "Mettre à niveau",
+    "tool_business_plan": "Plan d'affaires",
+    "tool_business_plan_sub": "il y a 4 jours",
+    "tool_financials": "Finances",
+    "tool_financials_sub": "il y a 4 jours",
+    "tool_pitch": "Présentation",
+    "tool_pitch_sub": "Obtenez des financements et impressionnez vos partenaires",
+    "tool_radar": "Radar",
+    "tool_radar_sub": "Suivez les concurrents, les actualités, les réseaux sociaux et les événements locaux",
+    "tool_guides": "Guides",
+    "tool_guides_sub": "Guides sur mesure générés pour vous",
+    "tool_market_research": "Étude de marché",
+    "tool_market_research_sub": "Données démographiques, personas et benchmarks sectoriels",
+    "formation_section": "Formation",
+    "formation_heading": "Lancez votre SARL en toute confiance.",
+    "formation_desc": "Créez votre SARL pour officialiser votre entreprise et protéger vos biens personnels. Bénéficiez d'une conformité sans souci et dormez tranquille. Nous veillerons à ce que vous soyez toujours en règle.",
+    "formation_cta": "Accéder à Formation"
+  },
+  "help": {
+    "hero_title": "Conseils et réponses de l'équipe Venturekit",
+    "search_placeholder": "Rechercher des articles...",
+    "footer_powered": "Nous utilisons Intercom",
+    "by": "Par",
+    "articles": "articles",
+    "cards": {
+      "quick_guides_title": "Guides rapides et faciles",
+      "quick_guides_desc": "Apprenez les bases ici",
+      "business_plan_title": "Rendez votre plan d'affaires vraiment unique !",
+      "business_plan_desc": "Plongez dans les fonctionnalités avancées",
+      "financials_title": "Finances du plan d'affaires",
+      "financials_desc": "Comment modifier les informations dans la section Finance",
+      "account_mgmt_title": "Gestion de compte",
+      "account_mgmt_desc": "Abonnements, facturation et crédits",
+      "troubleshoot_title": "Résolution de problèmes",
+      "troubleshoot_desc": "Solutions simples aux problèmes techniques de base.",
+      "formation_title": "Formation",
+      "formation_desc": "Informations sur nos services de création d'entreprise",
+      "additional_title": "Ressources supplémentaires",
+      "additional_desc": "Trouvez des informations sur toutes les fonctionnalités supplémentaires",
+      "contact_title": "Nous contacter",
+      "contact_desc": "Nos points de contact"
+    }
+  },
+  "account": {
+    "title": "Compte",
+    "subtitle": "Gérez les paramètres de votre compte.",
+    "profile": {
+      "title": "Profil",
+      "email_label": "E-mail :",
+      "email_hint": "Pour modifier votre e-mail, ajoutez d'abord un mot de passe.",
+      "google_enabled": "Connexion avec Google activée",
+      "add_password": "Ajouter un mot de passe",
+      "language_label": "Langue"
+    },
+    "subscription": {
+      "title": "Abonnement",
+      "free_plan_text": "Vous êtes sur le plan gratuit. Passez à la version supérieure pour accéder à toutes les fonctionnalités.",
+      "upgrade_button": "Mettre à niveau"
+    },
+    "contact_support": {
+      "title": "Contacter le support",
+      "description": "Nous sommes là pour vous aider.",
+      "button": "Contacter le support"
+    },
+    "danger_zone": {
+      "title": "Zone dangereuse",
+      "description": "La suppression de votre compte supprime définitivement toutes vos données.",
+      "delete_button": "Supprimer le compte"
+    },
+    "password_modal": {
+      "title": "Ajouter un mot de passe",
+      "placeholder": "Mot de passe",
+      "submit": "Soumettre"
+    },
+    "delete_modal": {
+      "title": "Êtes-vous absolument sûr ?",
+      "description": "Cette action est irréversible. Cela supprimera définitivement votre compte et supprimera vos données de nos serveurs.",
+      "cancel": "Annuler",
+      "continue": "Continuer"
+    }
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsche",
+    "it": "Italiano",
+    "pt": "Português"
+  },
+  "common": {
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "success": "Succès"
+  }
+}

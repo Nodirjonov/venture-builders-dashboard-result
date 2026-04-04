@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Início",
+    "plans": "Planos",
+    "guides": "Guias",
+    "ai_consultant": "Consultor IA",
+    "pitch": "Pitch",
+    "radar": "Radar",
+    "market_research": "Pesquisa de mercado",
+    "financials": "Finanças",
+    "formation": "Constituição",
+    "upgrade": "Fazer upgrade",
+    "help": "Ajuda",
+    "account": "Conta",
+    "settings": "Configurações",
+    "logout": "Sair",
+    "new_company": "Nova empresa",
+    "current_company": "Empresa atual",
+    "initial_scenario": "Cenário inicial"
+  },
+  "dashboard": {
+    "welcome": "Bem-vindo,",
+    "upgrade_banner": "Faça upgrade para obter o plano de negócios completo",
+    "upgrade_button": "Fazer upgrade",
+    "tool_business_plan": "Plano de negócios",
+    "tool_business_plan_sub": "há 4 dias",
+    "tool_financials": "Finanças",
+    "tool_financials_sub": "há 4 dias",
+    "tool_pitch": "Apresentação",
+    "tool_pitch_sub": "Garanta financiamento e impressione parceiros",
+    "tool_radar": "Radar",
+    "tool_radar_sub": "Acompanhe concorrentes, notícias, redes sociais e eventos locais",
+    "tool_guides": "Guias",
+    "tool_guides_sub": "Guias personalizados gerados para você",
+    "tool_market_research": "Pesquisa de mercado",
+    "tool_market_research_sub": "Dados demográficos, personas e benchmarks do setor",
+    "formation_section": "Constituição",
+    "formation_heading": "Abra sua LLC com confiança.",
+    "formation_desc": "Forme sua LLC para tornar seu negócio oficial e proteger seus bens pessoais. Escolha a conformidade sem preocupações e descanse tranquilo. Garantiremos que você esteja sempre em dia com seu estado.",
+    "formation_cta": "Ir para Constituição"
+  },
+  "help": {
+    "hero_title": "Conselhos e respostas da equipe Venturekit",
+    "search_placeholder": "Pesquisar artigos...",
+    "footer_powered": "Usamos o Intercom",
+    "by": "Por",
+    "articles": "artigos",
+    "cards": {
+      "quick_guides_title": "Guias rápidos e fáceis",
+      "quick_guides_desc": "Aprenda o básico aqui",
+      "business_plan_title": "Torne seu plano de negócios verdadeiramente seu!",
+      "business_plan_desc": "Mergulhe nos recursos avançados",
+      "financials_title": "Finanças do plano de negócios",
+      "financials_desc": "Como editar informações na seção Financeira",
+      "account_mgmt_title": "Gerenciamento de conta",
+      "account_mgmt_desc": "Assinaturas, faturamento e créditos",
+      "troubleshoot_title": "Solução de problemas",
+      "troubleshoot_desc": "Soluções simples para problemas técnicos básicos.",
+      "formation_title": "Constituição",
+      "formation_desc": "Informações sobre nossos serviços de constituição de LLC",
+      "additional_title": "Recursos adicionais",
+      "additional_desc": "Encontre informações sobre todos os recursos extras",
+      "contact_title": "Fale conosco",
+      "contact_desc": "Nossos pontos de contato"
+    }
+  },
+  "account": {
+    "title": "Conta",
+    "subtitle": "Gerencie as configurações da sua conta.",
+    "profile": {
+      "title": "Perfil",
+      "email_label": "E-mail:",
+      "email_hint": "Para alterar seu e-mail, adicione uma senha primeiro.",
+      "google_enabled": "Login com Google ativado",
+      "add_password": "Adicionar senha",
+      "language_label": "Idioma"
+    },
+    "subscription": {
+      "title": "Assinatura",
+      "free_plan_text": "Você está no plano gratuito. Faça upgrade para acessar todos os recursos.",
+      "upgrade_button": "Fazer upgrade"
+    },
+    "contact_support": {
+      "title": "Contatar suporte",
+      "description": "Estamos aqui para ajudar.",
+      "button": "Contatar suporte"
+    },
+    "danger_zone": {
+      "title": "Zona de perigo",
+      "description": "Excluir sua conta exclui permanentemente todos os seus dados.",
+      "delete_button": "Excluir conta"
+    },
+    "password_modal": {
+      "title": "Adicionar senha",
+      "placeholder": "Senha",
+      "submit": "Enviar"
+    },
+    "delete_modal": {
+      "title": "Você tem absoluta certeza?",
+      "description": "Esta ação não pode ser desfeita. Sua conta e todos os dados serão excluídos permanentemente de nossos servidores.",
+      "cancel": "Cancelar",
+      "continue": "Continuar"
+    }
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsche",
+    "it": "Italiano",
+    "pt": "Português"
+  },
+  "common": {
+    "close": "Fechar",
+    "save": "Salvar",
+    "loading": "Carregando...",
+    "error": "Algo deu errado",
+    "success": "Sucesso"
+  }
+}

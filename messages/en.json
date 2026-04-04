@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Home",
+    "plans": "Plans",
+    "guides": "Guides",
+    "ai_consultant": "AI Consultant",
+    "pitch": "Pitch",
+    "radar": "Radar",
+    "market_research": "Market Research",
+    "financials": "Financials",
+    "formation": "Formation",
+    "upgrade": "Upgrade",
+    "help": "Help",
+    "account": "Account",
+    "settings": "Settings",
+    "logout": "Logout",
+    "new_company": "New Company",
+    "current_company": "Current company",
+    "initial_scenario": "Initial Scenario"
+  },
+  "dashboard": {
+    "welcome": "Welcome,",
+    "upgrade_banner": "Upgrade to get the full business plan",
+    "upgrade_button": "Upgrade",
+    "tool_business_plan": "Business Plan",
+    "tool_business_plan_sub": "4 days ago",
+    "tool_financials": "Financials",
+    "tool_financials_sub": "4 days ago",
+    "tool_pitch": "Pitch Deck",
+    "tool_pitch_sub": "Secure funding and impress partners",
+    "tool_radar": "Radar",
+    "tool_radar_sub": "Track competitors, news, social media, and local events",
+    "tool_guides": "Guides",
+    "tool_guides_sub": "Bespoke guides generated just for you",
+    "tool_market_research": "Market Research",
+    "tool_market_research_sub": "Audience demographics, personas, and industry benchmarks",
+    "formation_section": "Formation",
+    "formation_heading": "Start your LLC with confidence.",
+    "formation_desc": "Form your LLC to make your business official and protect your personal assets. Choose worry-free compliance and rest easy. We'll make sure you're always in good standing with your state.",
+    "formation_cta": "Go to Formation"
+  },
+  "help": {
+    "hero_title": "Advice and answers from the Venturekit Team",
+    "search_placeholder": "Search for articles...",
+    "footer_powered": "We run on Intercom",
+    "by": "By",
+    "articles": "articles",
+    "cards": {
+      "quick_guides_title": "Quick & Easy How To Guides",
+      "quick_guides_desc": "Learn the basics here",
+      "business_plan_title": "Make your Business Plan truly your own!",
+      "business_plan_desc": "Dive into more advanced features",
+      "financials_title": "Business Plan Financials",
+      "financials_desc": "How to edit information in the Financial section",
+      "account_mgmt_title": "Account Management",
+      "account_mgmt_desc": "Subscriptions, Billing and Credits",
+      "troubleshoot_title": "Troubleshoot",
+      "troubleshoot_desc": "Simple fixes for basic technical issues.",
+      "formation_title": "Formation",
+      "formation_desc": "Information about our LLC Formation Services",
+      "additional_title": "Additional Resources",
+      "additional_desc": "Find information on all the extra features",
+      "contact_title": "Contact Us",
+      "contact_desc": "Our points of contact"
+    }
+  },
+  "account": {
+    "title": "Account",
+    "subtitle": "Manage your account settings.",
+    "profile": {
+      "title": "Profile",
+      "email_label": "Email:",
+      "email_hint": "To change your email, add a password first.",
+      "google_enabled": "Sign in with Google enabled",
+      "add_password": "Add Password",
+      "language_label": "Language"
+    },
+    "subscription": {
+      "title": "Subscription",
+      "free_plan_text": "You're on a free plan. Upgrade to get access to all features.",
+      "upgrade_button": "Upgrade"
+    },
+    "contact_support": {
+      "title": "Contact Support",
+      "description": "We're here to help.",
+      "button": "Contact Support"
+    },
+    "danger_zone": {
+      "title": "Danger Zone",
+      "description": "Deleting your account permanently deletes all your data.",
+      "delete_button": "Delete account"
+    },
+    "password_modal": {
+      "title": "Add Password",
+      "placeholder": "Password",
+      "submit": "Submit"
+    },
+    "delete_modal": {
+      "title": "Are you absolutely sure?",
+      "description": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+      "cancel": "Cancel",
+      "continue": "Continue"
+    }
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsche",
+    "it": "Italiano",
+    "pt": "Português"
+  },
+  "common": {
+    "close": "Close",
+    "save": "Save",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "success": "Success"
+  }
+}

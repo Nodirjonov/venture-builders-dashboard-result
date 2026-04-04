@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "plans": "Planes",
+    "guides": "Guías",
+    "ai_consultant": "Consultor IA",
+    "pitch": "Pitch",
+    "radar": "Radar",
+    "market_research": "Investigación de mercado",
+    "financials": "Finanzas",
+    "formation": "Formación",
+    "upgrade": "Actualizar",
+    "help": "Ayuda",
+    "account": "Cuenta",
+    "settings": "Configuración",
+    "logout": "Cerrar sesión",
+    "new_company": "Nueva empresa",
+    "current_company": "Empresa actual",
+    "initial_scenario": "Escenario inicial"
+  },
+  "dashboard": {
+    "welcome": "Bienvenido,",
+    "upgrade_banner": "Actualiza para obtener el plan de negocios completo",
+    "upgrade_button": "Actualizar",
+    "tool_business_plan": "Plan de negocios",
+    "tool_business_plan_sub": "hace 4 días",
+    "tool_financials": "Finanzas",
+    "tool_financials_sub": "hace 4 días",
+    "tool_pitch": "Presentación",
+    "tool_pitch_sub": "Consigue financiación e impresiona a tus socios",
+    "tool_radar": "Radar",
+    "tool_radar_sub": "Sigue competidores, noticias, redes sociales y eventos locales",
+    "tool_guides": "Guías",
+    "tool_guides_sub": "Guías personalizadas generadas para ti",
+    "tool_market_research": "Investigación de mercado",
+    "tool_market_research_sub": "Datos demográficos, personas e indicadores del sector",
+    "formation_section": "Formación",
+    "formation_heading": "Crea tu LLC con confianza.",
+    "formation_desc": "Forma tu LLC para hacer oficial tu negocio y proteger tus bienes personales. Elige el cumplimiento sin preocupaciones y descansa tranquilo. Nos aseguraremos de que siempre estés al día con tu estado.",
+    "formation_cta": "Ir a Formación"
+  },
+  "help": {
+    "hero_title": "Consejos y respuestas del equipo Venturekit",
+    "search_placeholder": "Buscar artículos...",
+    "footer_powered": "Usamos Intercom",
+    "by": "Por",
+    "articles": "artículos",
+    "cards": {
+      "quick_guides_title": "Guías rápidas y fáciles",
+      "quick_guides_desc": "Aprende los conceptos básicos aquí",
+      "business_plan_title": "¡Haz que tu plan de negocios sea realmente tuyo!",
+      "business_plan_desc": "Sumérgete en funciones más avanzadas",
+      "financials_title": "Finanzas del plan de negocios",
+      "financials_desc": "Cómo editar la información en la sección Financiera",
+      "account_mgmt_title": "Gestión de cuenta",
+      "account_mgmt_desc": "Suscripciones, facturación y créditos",
+      "troubleshoot_title": "Solución de problemas",
+      "troubleshoot_desc": "Soluciones simples para problemas técnicos básicos.",
+      "formation_title": "Formación",
+      "formation_desc": "Información sobre nuestros servicios de formación de LLC",
+      "additional_title": "Recursos adicionales",
+      "additional_desc": "Encuentra información sobre todas las funciones adicionales",
+      "contact_title": "Contáctanos",
+      "contact_desc": "Nuestros puntos de contacto"
+    }
+  },
+  "account": {
+    "title": "Cuenta",
+    "subtitle": "Administra la configuración de tu cuenta.",
+    "profile": {
+      "title": "Perfil",
+      "email_label": "Correo electrónico:",
+      "email_hint": "Para cambiar tu correo, primero agrega una contraseña.",
+      "google_enabled": "Inicio de sesión con Google habilitado",
+      "add_password": "Agregar contraseña",
+      "language_label": "Idioma"
+    },
+    "subscription": {
+      "title": "Suscripción",
+      "free_plan_text": "Estás en el plan gratuito. Actualiza para acceder a todas las funciones.",
+      "upgrade_button": "Actualizar"
+    },
+    "contact_support": {
+      "title": "Contactar soporte",
+      "description": "Estamos aquí para ayudarte.",
+      "button": "Contactar soporte"
+    },
+    "danger_zone": {
+      "title": "Zona de peligro",
+      "description": "Eliminar tu cuenta elimina permanentemente todos tus datos.",
+      "delete_button": "Eliminar cuenta"
+    },
+    "password_modal": {
+      "title": "Agregar contraseña",
+      "placeholder": "Contraseña",
+      "submit": "Enviar"
+    },
+    "delete_modal": {
+      "title": "¿Estás absolutamente seguro?",
+      "description": "Esta acción no se puede deshacer. Eliminará permanentemente tu cuenta y tus datos de nuestros servidores.",
+      "cancel": "Cancelar",
+      "continue": "Continuar"
+    }
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsche",
+    "it": "Italiano",
+    "pt": "Português"
+  },
+  "common": {
+    "close": "Cerrar",
+    "save": "Guardar",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "success": "Éxito"
+  }
+}
