@@ -6,9 +6,9 @@ import type { Task } from '@/types'
 export const taskSchema = z.object({
   id: z.string(),
   title: z.string(),
-  status: z.string(),
-  label: z.string(),
-  priority: z.string(),
+  status: z.enum(['backlog', 'todo', 'in progress', 'done', 'canceled']),
+  label: z.enum(['bug', 'feature', 'documentation']),
+  priority: z.enum(['low', 'medium', 'high']),
 })
 
 // Re-export the shared domain type for convenience within this feature.

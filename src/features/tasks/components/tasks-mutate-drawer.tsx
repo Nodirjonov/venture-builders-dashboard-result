@@ -33,9 +33,15 @@ type TaskMutateDrawerProps = {
 
 const formSchema = z.object({
   title: z.string().min(1, 'Title is required.'),
-  status: z.string().min(1, 'Please select a status.'),
-  label: z.string().min(1, 'Please select a label.'),
-  priority: z.string().min(1, 'Please choose a priority.'),
+  status: z.enum(['backlog', 'todo', 'in progress', 'done', 'canceled'], {
+    message: 'Please select a status.',
+  }),
+  label: z.enum(['bug', 'feature', 'documentation'], {
+    message: 'Please select a label.',
+  }),
+  priority: z.enum(['low', 'medium', 'high'], {
+    message: 'Please choose a priority.',
+  }),
 })
 type TaskForm = z.infer<typeof formSchema>
 
@@ -50,9 +56,9 @@ export function TasksMutateDrawer({
     resolver: zodResolver(formSchema),
     defaultValues: currentRow ?? {
       title: '',
-      status: '',
-      label: '',
-      priority: '',
+      status: undefined,
+      label: undefined,
+      priority: undefined,
     },
   })
 

@@ -494,8 +494,8 @@ function DocumentSection({
   onOpenExport,
   onOpenOutline,
   onAddPage,
-  exportConfig,
-  scheme,
+  exportConfig: _exportConfig,
+  scheme: _scheme,
 }: {
   onOpenExport: () => void
   onOpenOutline: () => void

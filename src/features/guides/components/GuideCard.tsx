@@ -1,6 +1,6 @@
 import { Eye, Lock, Sparkles } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
-import type { GuideStatus } from '@/features/guides/data/guides'
+import type { GuideStatus } from '@/types'
 
 interface GuideCardProps {
   title: string

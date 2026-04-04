@@ -1,4 +1,4 @@
-import type { Guide, GuideStatus, MarketingTactic, LicenseCardData } from '@/types'
+import type { Guide, MarketingTactic, LicenseCardData } from '@/types'
 
 export const guides: Guide[] = [
   {
