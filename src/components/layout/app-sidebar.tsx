@@ -1,4 +1,19 @@
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -21,22 +36,8 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
 import { cn } from '@/lib/utils'
+import { useUpgradeStore } from '@/stores/upgrade-store'
 import { Link, useLocation } from '@tanstack/react-router'
 import {
   BarChart,
@@ -48,20 +49,19 @@ import {
   FileText,
   HelpCircle,
   Home,
+  LogOut,
   MessageCircle,
+  Pencil,
   PieChart,
+  PlusCircle,
   Presentation,
   Rocket,
-  Target,
-  PlusCircle,
-  Pencil,
-  Trash2,
   Settings,
-  LogOut,
+  Target,
+  Trash2,
   X,
 } from 'lucide-react'
-import { useState, useEffect, useRef } from 'react'
-import { useUpgradeStore } from '@/stores/upgrade-store'
+import { useEffect, useRef, useState } from 'react'
 
 type NavKey =
   | 'home'
@@ -139,11 +139,13 @@ function CollapsibleNavItem({
   isActive,
   href,
   label,
+  showTooltip,
 }: {
   item: NavWithSub
   isActive: boolean
   href: string
   label: string
+  showTooltip: boolean
 }) {
   const [manualOpen, setManualOpen] = useState<boolean | null>(null)
 
@@ -169,7 +171,7 @@ function CollapsibleNavItem({
         <CollapsibleTrigger asChild>
           <SidebarMenuButton
             isActive={isActive}
-            tooltip={label}
+            tooltip={showTooltip ? label : undefined}
             className={cn(
               'flex items-center gap-2 w-full py-[7px] px-2 h-[36px] outline-none border-none ring-0 focus:ring-0 focus:outline-none focus:bg-[#E5E7EB] transition-all duration-200 sb-item',
               isActive ? 'bg-[#E5E7EB]' : 'bg-transparent text-[#6b7280]',
@@ -185,7 +187,7 @@ function CollapsibleNavItem({
               />
             </div>
             <span className={cn(
-              'text-[14px] whitespace-nowrap overflow-hidden transition-all duration-200 sb-text',
+              'text-[14px] whitespace-nowrap overflow-hidden text-ellipsis transition-all duration-200 sb-text',
               isActive ? 'text-[#000] font-medium' : 'text-[#6B7280] font-normal',
             )}>
               {label}
@@ -320,7 +322,8 @@ function ScenarioItem({ initialName }: { initialName: string }) {
 }
 
 export function AppSidebar() {
-  const href = useLocation({ select: (location) => location.href })
+  const href = useLocation({ select: (location) => location.pathname })
+  const isPlansPage = href.startsWith('/plans')
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const { openModal } = useUpgradeStore()
   const { setOpen } = useSidebar()
@@ -328,12 +331,12 @@ export function AppSidebar() {
   // On /plans: collapse sidebar to icons only
   // On all other pages: sidebar is fully open
   useEffect(() => {
-    if (href.startsWith('/plans')) {
+    if (isPlansPage) {
       setOpen(false)
     } else {
       setOpen(true)
     }
-  }, [href, setOpen])
+  }, [isPlansPage, setOpen])
 
   return (
     <>
@@ -343,13 +346,11 @@ export function AppSidebar() {
          width: auto;
          opacity: 1;
       }
-      .group[data-collapsible="icon"] .sb-item.sb-item {
-         padding-left: 8px !important;
-         padding-right: 8px !important;
-         margin-left: 0 !important;
-         margin-right: 0 !important;
-         justify-content: flex-start !important;
-         gap: 8px !important;
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-item.sb-item {
+         padding: 0 !important;
+         margin: 0 !important;
+         justify-content: center !important;
+         gap: 0 !important;
          width: 100% !important;
          height: 36px !important;
       }
@@ -369,38 +370,51 @@ export function AppSidebar() {
       /* Shadcn normally strips width and gap when data-state=collapsed.
          We re-apply them ONLY IF the container is hovered, 
          to prevent jumpy classes while maintaining native flex alignment */
-      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-text {
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-text {
          width: 0px !important;
          opacity: 0 !important;
          min-width: 0 !important;
          padding: 0 !important;
          margin: 0 !important;
       }
-      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-wrapper {
-         padding-left: 8px !important;
-         padding-right: 8px !important;
-      }
-      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-caret {
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"] .sb-sub-menu {
          display: none !important;
       }
-      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-sub-menu {
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-caret {
          display: none !important;
       }
-      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-item {
-         justify-content: center !important;
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-item.sb-item.sb-upgrade-btn {
+         width: 32px !important;
+         height: 32px !important;
+         border-radius: 50% !important;
          padding: 0 !important;
-         gap: 0 !important;
-         width: 100% !important; /* Forces it to fill the 32px space exactly */
+         justify-content: center !important;
       }
-      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-upgrade-text {
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-item.sb-item.sb-logo-btn {
+         width: 32px !important;
+         height: 32px !important;
+         min-height: 32px !important;
+         padding: 0 !important;
+         justify-content: center !important;
+      }
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-item.sb-item.sb-company-btn {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 0 !important;
+        justify-content: center !important;
+      }
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-company-caret {
+        display: none !important;
+      }
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-upgrade-text {
          display: none !important;
       }
-      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-upgrade-crown {
-         display: block !important;
+      .plans-sidebar.group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-upgrade-crown {
+         display: flex !important;
       }
 
       /* Explicitly fix Shadcn Native size-8 override which restricts width globally */
-      .group[data-collapsible="icon"]:hover [data-sidebar="menu-button"] {
+      .plans-sidebar.group[data-collapsible="icon"]:hover [data-sidebar="menu-button"] {
          width: 100% !important;
          padding-left: 8px !important;
          padding-right: 8px !important;
@@ -409,13 +423,13 @@ export function AppSidebar() {
     <Sidebar
       collapsible='icon'
       variant='sidebar'
-      className='border-r border-[#E5E7EB] !bg-white'
+      className={cn('border-r border-[#E5E7EB] !bg-white', isPlansPage && 'plans-sidebar')}
       style={{'--sidebar-accent': '#E5E7EB', '--sidebar-accent-foreground': '#111827'} as React.CSSProperties}
     >
-      <SidebarHeader className='px-4 sb-wrapper pt-[18px] pb-[10px] !bg-white border-none shadow-none flex flex-row items-center justify-between transition-all duration-200'>
+      <SidebarHeader className='px-2 sb-wrapper pt-[18px] pb-[10px] !bg-white border-none shadow-none flex flex-row items-center justify-between transition-all duration-200'>
         <Link
           to='/'
-          className='flex items-center gap-2 outline-none flex-shrink-0 min-h-[58px] overflow-hidden transition-all duration-200 sb-item'
+          className='flex items-center gap-2 px-2 outline-none flex-shrink-0 min-h-[58px] overflow-hidden transition-all duration-200 sb-item sb-logo-btn'
         >
           <div className='relative flex-shrink-0 flex items-center justify-center w-8 h-8'>
             <img
@@ -434,12 +448,12 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent className='overflow-x-hidden min-h-0 [scrollbar-width:thin]'>
-        <div className='px-4 sb-wrapper transition-all duration-200'>
+        <div className='px-2 sb-wrapper transition-all duration-200'>
         {/* Company Switcher Trigger */}
         <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
           <DropdownMenuTrigger asChild>
             <button
-              className='w-full flex items-center py-2 px-2 rounded-lg bg-transparent hover:bg-[#F3F4F6] data-[state=open]:bg-[#F3F4F6] transition-all duration-200 mt-2 mb-1 focus:outline-none focus:ring-0 gap-2 sb-item overflow-hidden'
+              className='w-full flex items-center py-2 px-2 rounded-lg bg-transparent hover:bg-[#F3F4F6] data-[state=open]:bg-[#F3F4F6] transition-all duration-200 mt-2 mb-1 focus:outline-none focus:ring-0 gap-2 sb-item overflow-hidden sb-company-btn'
             >
               <div className='flex h-8 w-8 items-center justify-center rounded-[10px] bg-[#111827] text-white text-[15px] font-bold shrink-0'>
                 I
@@ -447,7 +461,7 @@ export function AppSidebar() {
               <span className='flex-1 text-left text-[14px] font-semibold text-[#1F2937] truncate sb-text transition-all duration-200'>
                 Innovatech Academy
               </span>
-              <ChevronRight className='h-4 w-4 text-gray-400 font-bold shrink-0 sb-caret transition-all duration-200' />
+              <ChevronRight className='h-4 w-4 text-gray-400 font-bold shrink-0 sb-caret sb-company-caret transition-all duration-200' />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -482,7 +496,7 @@ export function AppSidebar() {
         </DropdownMenu>
         </div>
 
-        <div className='px-4 sb-wrapper mt-4 transition-all duration-200'>
+        <div className='px-2 sb-wrapper mt-4 transition-all duration-200'>
         <SidebarMenu className='gap-0.5'>
           {navItems.map((item) => {
             if (item.items) {
@@ -494,6 +508,7 @@ export function AppSidebar() {
                   isActive={groupActive}
                   href={href}
                   label={item.label}
+                  showTooltip={isPlansPage}
                 />
               )
             }
@@ -504,7 +519,7 @@ export function AppSidebar() {
                 <SidebarMenuButton
                   asChild
                   isActive={isActive}
-                  tooltip={item.label}
+                  tooltip={isPlansPage ? item.label : undefined}
                   className={cn(
                     'flex items-center w-full py-[7px] px-2 h-[36px] outline-none border-none ring-0 focus:ring-0 focus:outline-none focus:bg-[#E5E7EB] transition-all duration-200 sb-item overflow-hidden',
                     isActive ? 'bg-[#E5E7EB]' : 'bg-transparent text-[#6b7280]',
@@ -512,7 +527,7 @@ export function AppSidebar() {
                 >
                   <Link
                     to={item.url}
-                    className='flex items-center w-full gap-2 transition-all duration-200'
+                    className='flex min-w-0 items-center w-full gap-2 transition-all duration-200'
                   >
                     <div className='w-8 h-8 flex items-center justify-center shrink-0'>
                       <item.icon
@@ -525,7 +540,7 @@ export function AppSidebar() {
                       />
                     </div>
                     <span className={cn(
-                      'text-[14px] whitespace-nowrap transition-all duration-200 sb-text',
+                      'flex-1 min-w-0 overflow-hidden text-ellipsis text-[14px] whitespace-nowrap transition-all duration-200 sb-text',
                       isActive ? 'text-[#000] font-medium' : 'text-[#6B7280] font-normal group-hover/link:text-[#000]',
                     )}>
                       {item.label}
@@ -539,11 +554,11 @@ export function AppSidebar() {
         </div>
       </SidebarContent>
 
-      <SidebarFooter className='px-4 sb-wrapper pb-[16px] border-t font-sans mt-auto border-transparent transition-all duration-200'>
+      <SidebarFooter className='px-2 sb-wrapper pb-[16px] border-t font-sans mt-auto border-transparent transition-all duration-200'>
         <div className='mb-2 w-full mx-auto'>
           <button
             onClick={openModal}
-            className='w-full h-10 px-0 rounded-[22px] bg-[#111827] text-white text-[14px] font-medium flex items-center justify-center hover:bg-[#1e293b] transition-all duration-200 sb-item overflow-hidden'
+            className='w-full h-10 px-0 rounded-[22px] bg-[#111827] text-white text-[14px] font-medium flex items-center justify-center hover:bg-[#1e293b] transition-all duration-200 sb-item overflow-hidden sb-upgrade-btn'
           >
             <div className='w-8 h-8 flex items-center justify-center shrink-0 sb-upgrade-crown'>
               <Crown
@@ -554,7 +569,6 @@ export function AppSidebar() {
             <span className='whitespace-nowrap flex-1 text-center transition-all duration-200 sb-upgrade-text'>
               Upgrade
             </span>
-            <div className="w-8 shrink-0 sb-upgrade-text"></div>
           </button>
         </div>
 
@@ -562,7 +576,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              tooltip={'Help Center'}
+              tooltip={isPlansPage ? 'Help Center' : undefined}
               className='flex items-center w-full h-9 rounded-lg py-1.5 px-2 text-sm font-medium text-[#4B5563] hover:bg-[#F9FAFB] hover:text-[#111827] transition-all duration-200 sb-item overflow-hidden'
             >
               <Link
@@ -583,7 +597,7 @@ export function AppSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
-                  tooltip={'Account'}
+                  tooltip={isPlansPage ? 'Account' : undefined}
                   className='h-9 rounded-lg py-1.5 px-2 text-sm font-medium transition-all duration-200 flex items-center w-full bg-transparent hover:bg-[#E5E7EB] data-[state=open]:bg-[#E5E7EB] text-[#111827] sb-item overflow-hidden'
                 >
                   <div className='w-8 h-8 flex items-center justify-center shrink-0'>
@@ -623,7 +637,7 @@ export function AppSidebar() {
       </SidebarFooter>
 
       {/* SidebarRail only on Plans — allows toggling collapse only there */}
-      {href.includes('/plans') && <SidebarRail />}
+      {isPlansPage && <SidebarRail />}
     </Sidebar>
     </>
   )
