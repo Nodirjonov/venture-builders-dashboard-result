@@ -1,5 +1,4 @@
-import type { User } from '@/types'
-import type { PaginatedResponse, PaginationParams } from '@/types'
+import type { User, PaginatedResponse, PaginationParams } from '@/types'
 import { users as mockUsers } from '@/features/users/data/users'
 
 // TODO: replace mock implementations with real apiClient calls when backend is ready

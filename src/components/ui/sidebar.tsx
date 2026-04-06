@@ -168,7 +168,6 @@ function Sidebar({
         data-slot='sidebar'
         className={cn(
           'flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground',
-          className
         )}
         {...props}
       >
@@ -204,7 +203,7 @@ function Sidebar({
 
   return (
     <div
-      className='group peer hidden text-sidebar-foreground md:block'
+      className={cn('group peer hidden text-sidebar-foreground md:block', className)}
       data-state={state}
       data-collapsible={state === 'collapsed' ? collapsible : ''}
       data-variant={variant}
@@ -234,7 +233,6 @@ function Sidebar({
           variant === 'floating' || variant === 'inset'
             ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
             : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-hover:group-data-[collapsible=icon]:w-(--sidebar-width) group-data-[side=left]:border-e group-data-[side=right]:border-s',
-          className
         )}
         {...props}
       >

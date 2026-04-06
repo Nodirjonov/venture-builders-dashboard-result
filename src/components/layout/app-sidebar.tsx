@@ -60,7 +60,7 @@ import {
   LogOut,
   X,
 } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useUpgradeStore } from '@/stores/upgrade-store'
 
 type NavKey =
@@ -80,7 +80,7 @@ type NavEntry = NavSimple | NavWithSub
 
 const navItems: NavEntry[] = [
   { key: 'home', url: '/', icon: Home, label: 'Home' },
-  { key: 'plans', url: '/plans', icon: FileText, label: 'Business Plans' },
+  { key: 'plans', url: '/plans', icon: FileText, label: 'Plans' },
   { key: 'guides', url: '/guides', icon: BookOpen, label: 'Guides' },
   { key: 'ai_consultant', url: '/ai-consultant', icon: MessageCircle, label: 'AI Consultant' },
   { key: 'pitch', url: '/pitch', icon: Presentation, label: 'Pitch Decks' },
@@ -145,17 +145,24 @@ function CollapsibleNavItem({
   href: string
   label: string
 }) {
-  const [open, setOpen] = useState(isActive)
+  const [manualOpen, setManualOpen] = useState<boolean | null>(null)
 
-  useEffect(() => {
-    setOpen(isActive)
-  }, [href, isActive])
+  // Reset manual override when route changes so active group auto-opens
+  /* eslint-disable react-hooks/refs */
+  const prevHref = useRef(href)
+  if (prevHref.current !== href) {
+    prevHref.current = href
+    if (manualOpen !== null) setManualOpen(null)
+  }
+  /* eslint-enable react-hooks/refs */
+
+  const open = manualOpen !== null ? manualOpen : isActive
 
   return (
     <Collapsible
       asChild
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={setManualOpen}
       className='group/collapsible'
     >
       <SidebarMenuItem>
@@ -164,13 +171,11 @@ function CollapsibleNavItem({
             isActive={isActive}
             tooltip={label}
             className={cn(
-              'flex items-center gap-3 w-full py-[7px] px-2 h-[36px] outline-none border-none ring-0 focus:ring-0 focus:outline-none focus:bg-[#E5E7EB]',
-              isActive ? 'bg-[#E5E7EB]' : 'bg-white text-[#6b7280]',
-              'group-data-[state=collapsed]:!w-8 group-data-[state=collapsed]:!h-8 group-data-[state=collapsed]:!p-0 group-data-[state=collapsed]:!gap-0 group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:justify-center',
-              'group-hover:group-data-[state=collapsed]:!w-[calc(100%-16px)] group-hover:group-data-[state=collapsed]:mx-[8px] group-hover:group-data-[state=collapsed]:!px-2 group-hover:group-data-[state=collapsed]:!py-[7px] group-hover:group-data-[state=collapsed]:!gap-3 group-hover:group-data-[state=collapsed]:justify-start'
+              'flex items-center gap-2 w-full py-[7px] px-2 h-[36px] outline-none border-none ring-0 focus:ring-0 focus:outline-none focus:bg-[#E5E7EB] transition-all duration-200 sb-item',
+              isActive ? 'bg-[#E5E7EB]' : 'bg-transparent text-[#6b7280]',
             )}
           >
-            <div className='w-8 h-8 flex items-center justify-center shrink-0 group-data-[state=collapsed]:w-full'>
+            <div className='w-8 h-8 flex items-center justify-center shrink-0'>
               <item.icon
                 className={cn(
                   'h-[20px] w-[20px] ml-0 shrink-0',
@@ -180,22 +185,18 @@ function CollapsibleNavItem({
               />
             </div>
             <span className={cn(
-              'text-[14px] whitespace-nowrap overflow-hidden transition-all duration-200',
+              'text-[14px] whitespace-nowrap overflow-hidden transition-all duration-200 sb-text',
               isActive ? 'text-[#000] font-medium' : 'text-[#6B7280] font-normal',
-              'group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0',
-              'group-data-[state=collapsed]:group-hover:w-auto group-data-[state=collapsed]:group-hover:opacity-100 group-data-[state=collapsed]:group-hover:delay-0'
             )}>
               {label}
             </span>
             <ChevronDown className={cn(
-              'ms-auto h-4 w-4 text-[#9CA3AF] shrink-0 transition-all duration-200',
+              'ms-auto h-4 w-4 text-[#9CA3AF] shrink-0 transition-transform duration-200 sb-caret',
               'group-data-[state=open]/collapsible:rotate-180',
-              'group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:!m-0',
-              'group-data-[state=collapsed]:group-hover:w-4 group-data-[state=collapsed]:group-hover:opacity-100 group-data-[state=collapsed]:group-hover:delay-0 group-data-[state=collapsed]:group-hover:!ms-auto'
             )} />
           </SidebarMenuButton>
         </CollapsibleTrigger>
-        <CollapsibleContent className='group-data-[state=collapsed]:hidden group-hover:group-data-[state=collapsed]:block'>
+        <CollapsibleContent className='sb-sub-menu transition-all duration-200'>
           <SidebarMenuSub className='ml-4 border-l border-[#E5E7EB] pl-0'>
             {item.items.map((subItem) => {
               const subActive = href === subItem.url || href === subItem.url + '/'
@@ -324,43 +325,106 @@ export function AppSidebar() {
   const { openModal } = useUpgradeStore()
   const { setOpen } = useSidebar()
 
-  // Keep sidebar open on all pages
+  // On /plans: collapse sidebar to icons only
+  // On all other pages: sidebar is fully open
   useEffect(() => {
-    setOpen(true)
+    if (href.startsWith('/plans')) {
+      setOpen(false)
+    } else {
+      setOpen(true)
+    }
   }, [href, setOpen])
 
   return (
+    <>
+    <style>{`
+      /* Smooth transitions for native text handling */
+      .sb-text {
+         width: auto;
+         opacity: 1;
+      }
+      .group[data-collapsible="icon"] .sb-item.sb-item {
+         padding-left: 8px !important;
+         padding-right: 8px !important;
+         margin-left: 0 !important;
+         margin-right: 0 !important;
+         justify-content: flex-start !important;
+         gap: 8px !important;
+         width: 100% !important;
+         height: 36px !important;
+      }
+      .sb-caret {
+         display: block;
+      }
+      .sb-sub-menu {
+         display: block;
+      }
+      .sb-upgrade-text {
+         display: block;
+      }
+      .sb-upgrade-crown {
+         display: none;
+      }
+
+      /* Shadcn normally strips width and gap when data-state=collapsed.
+         We re-apply them ONLY IF the container is hovered, 
+         to prevent jumpy classes while maintaining native flex alignment */
+      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-text {
+         width: 0px !important;
+         opacity: 0 !important;
+         min-width: 0 !important;
+         padding: 0 !important;
+         margin: 0 !important;
+      }
+      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-wrapper {
+         padding-left: 8px !important;
+         padding-right: 8px !important;
+      }
+      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-caret {
+         display: none !important;
+      }
+      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-sub-menu {
+         display: none !important;
+      }
+      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-item {
+         justify-content: center !important;
+         padding: 0 !important;
+         gap: 0 !important;
+         width: 100% !important; /* Forces it to fill the 32px space exactly */
+      }
+      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-upgrade-text {
+         display: none !important;
+      }
+      .group[data-collapsible="icon"][data-state="collapsed"]:not(:hover) .sb-upgrade-crown {
+         display: block !important;
+      }
+
+      /* Explicitly fix Shadcn Native size-8 override which restricts width globally */
+      .group[data-collapsible="icon"]:hover [data-sidebar="menu-button"] {
+         width: 100% !important;
+         padding-left: 8px !important;
+         padding-right: 8px !important;
+      }
+    `}</style>
     <Sidebar
       collapsible='icon'
       variant='sidebar'
       className='border-r border-[#E5E7EB] !bg-white'
       style={{'--sidebar-accent': '#E5E7EB', '--sidebar-accent-foreground': '#111827'} as React.CSSProperties}
     >
-      <SidebarHeader className='px-4 pt-[18px] pb-[10px] !bg-white border-none shadow-none flex flex-row items-center justify-between'>
+      <SidebarHeader className='px-4 sb-wrapper pt-[18px] pb-[10px] !bg-white border-none shadow-none flex flex-row items-center justify-between transition-all duration-200'>
         <Link
           to='/'
-          className={cn(
-            'flex items-center gap-3 outline-none flex-shrink-0 min-h-[58px]',
-            'group-data-[state=collapsed]:gap-0 group-hover:group-data-[state=collapsed]:gap-3',
-            'group-data-[state=collapsed]:px-0 group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:mx-auto',
-            'px-2 group-hover:group-data-[state=collapsed]:px-2 group-hover:group-data-[state=collapsed]:justify-start group-hover:group-data-[state=collapsed]:mx-0'
-          )}
+          className='flex items-center gap-2 outline-none flex-shrink-0 min-h-[58px] overflow-hidden transition-all duration-200 sb-item'
         >
-          <div className={cn(
-            'relative flex-shrink-0 flex items-center justify-center w-8 h-8 transition-all duration-200',
-            'group-data-[state=collapsed]:!w-8 group-data-[state=collapsed]:!h-8'
-          )}>
+          <div className='relative flex-shrink-0 flex items-center justify-center w-8 h-8'>
             <img
               src='/images/logo.png'
               alt='Venturekit'
               className='w-full h-full object-contain'
             />
           </div>
-          <span className={cn(
-            'font-semibold text-[#000] text-[18px] whitespace-nowrap overflow-hidden',
-            'transition-all duration-200 group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0',
-            'group-data-[state=collapsed]:group-hover:w-auto group-data-[state=collapsed]:group-hover:opacity-100 group-data-[state=collapsed]:group-hover:delay-0'
-          )}>
+          <span className='font-semibold text-[#000] text-[18px] whitespace-nowrap sb-text transition-all duration-200'>
             Venturekit
           </span>
         </Link>
@@ -370,34 +434,20 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent className='overflow-x-hidden min-h-0 [scrollbar-width:thin]'>
-        <div className='px-4'>
+        <div className='px-4 sb-wrapper transition-all duration-200'>
         {/* Company Switcher Trigger */}
         <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
           <DropdownMenuTrigger asChild>
             <button
-              className={cn(
-                'w-full flex items-center py-2 px-2 rounded-lg bg-transparent hover:bg-[#F3F4F6] data-[state=open]:bg-[#F3F4F6] transition-all duration-200 mt-2 mb-1 focus:outline-none focus:ring-0',
-                'gap-3 group-data-[state=collapsed]:gap-0 group-hover:group-data-[state=collapsed]:gap-3',
-                'group-data-[state=collapsed]:!w-8 group-data-[state=collapsed]:!h-8 group-data-[state=collapsed]:!px-0 group-data-[state=collapsed]:!py-0 group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:justify-center group-hover:group-data-[state=collapsed]:!w-[calc(100%-16px)] group-hover:group-data-[state=collapsed]:mx-[8px] group-hover:group-data-[state=collapsed]:justify-start group-hover:group-data-[state=collapsed]:!px-2 group-hover:group-data-[state=collapsed]:!py-2'
-              )}
+              className='w-full flex items-center py-2 px-2 rounded-lg bg-transparent hover:bg-[#F3F4F6] data-[state=open]:bg-[#F3F4F6] transition-all duration-200 mt-2 mb-1 focus:outline-none focus:ring-0 gap-2 sb-item overflow-hidden'
             >
               <div className='flex h-8 w-8 items-center justify-center rounded-[10px] bg-[#111827] text-white text-[15px] font-bold shrink-0'>
                 I
               </div>
-              <span className={cn(
-                'flex-1 group-data-[state=collapsed]:flex-none text-left text-[14px] font-semibold text-[#1F2937] truncate',
-                'transition-all duration-200',
-                'group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0',
-                'group-data-[state=collapsed]:group-hover:w-auto group-data-[state=collapsed]:group-hover:flex-1 group-data-[state=collapsed]:group-hover:opacity-100 group-data-[state=collapsed]:group-hover:delay-0'
-              )}>
+              <span className='flex-1 text-left text-[14px] font-semibold text-[#1F2937] truncate sb-text transition-all duration-200'>
                 Innovatech Academy
               </span>
-              <ChevronRight className={cn(
-                'h-4 w-4 text-gray-400 font-bold shrink-0',
-                'transition-all duration-200',
-                'group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0',
-                'group-data-[state=collapsed]:group-hover:w-4 group-data-[state=collapsed]:group-hover:opacity-100 group-data-[state=collapsed]:group-hover:delay-0'
-              )} />
+              <ChevronRight className='h-4 w-4 text-gray-400 font-bold shrink-0 sb-caret transition-all duration-200' />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -432,7 +482,7 @@ export function AppSidebar() {
         </DropdownMenu>
         </div>
 
-        <div className='px-4 mt-4'>
+        <div className='px-4 sb-wrapper mt-4 transition-all duration-200'>
         <SidebarMenu className='gap-0.5'>
           {navItems.map((item) => {
             if (item.items) {
@@ -456,21 +506,15 @@ export function AppSidebar() {
                   isActive={isActive}
                   tooltip={item.label}
                   className={cn(
-                    'flex items-center gap-3 w-full py-[7px] px-2 h-[36px] outline-none border-none ring-0 focus:ring-0 focus:outline-none focus:bg-[#E5E7EB]',
-                    isActive ? 'bg-[#E5E7EB]' : 'bg-white text-[#6b7280]',
-                    'group-data-[state=collapsed]:!w-8 group-data-[state=collapsed]:!h-8 group-data-[state=collapsed]:!p-0 group-data-[state=collapsed]:!gap-0 group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:justify-center',
-                    'group-hover:group-data-[state=collapsed]:!w-[calc(100%-16px)] group-hover:group-data-[state=collapsed]:mx-[8px] group-hover:group-data-[state=collapsed]:!px-2 group-hover:group-data-[state=collapsed]:!py-[7px] group-hover:group-data-[state=collapsed]:!gap-3 group-hover:group-data-[state=collapsed]:justify-start'
+                    'flex items-center w-full py-[7px] px-2 h-[36px] outline-none border-none ring-0 focus:ring-0 focus:outline-none focus:bg-[#E5E7EB] transition-all duration-200 sb-item overflow-hidden',
+                    isActive ? 'bg-[#E5E7EB]' : 'bg-transparent text-[#6b7280]',
                   )}
                 >
                   <Link
                     to={item.url}
-                    className={cn(
-                      'flex items-center w-full group/link',
-                      'gap-3 group-data-[state=collapsed]:gap-0 group-hover:group-data-[state=collapsed]:gap-3',
-                      'group-data-[state=collapsed]:justify-center group-hover:group-data-[state=collapsed]:justify-start'
-                    )}
+                    className='flex items-center w-full gap-2 transition-all duration-200'
                   >
-                    <div className='w-8 h-8 flex items-center justify-center shrink-0 group-data-[state=collapsed]:w-full'>
+                    <div className='w-8 h-8 flex items-center justify-center shrink-0'>
                       <item.icon
                         className={cn(
                           'h-[20px] w-[20px] ml-0 shrink-0 transition-colors',
@@ -481,10 +525,8 @@ export function AppSidebar() {
                       />
                     </div>
                     <span className={cn(
-                      'text-[14px] whitespace-nowrap overflow-hidden transition-all duration-200',
+                      'text-[14px] whitespace-nowrap transition-all duration-200 sb-text',
                       isActive ? 'text-[#000] font-medium' : 'text-[#6B7280] font-normal group-hover/link:text-[#000]',
-                      'group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0',
-                      'group-data-[state=collapsed]:group-hover:w-auto group-data-[state=collapsed]:group-hover:opacity-100 group-data-[state=collapsed]:group-hover:delay-0'
                     )}>
                       {item.label}
                     </span>
@@ -497,23 +539,22 @@ export function AppSidebar() {
         </div>
       </SidebarContent>
 
-      <SidebarFooter className='px-4 pb-[16px] border-t font-sans mt-auto border-transparent'>
+      <SidebarFooter className='px-4 sb-wrapper pb-[16px] border-t font-sans mt-auto border-transparent transition-all duration-200'>
         <div className='mb-2 w-full mx-auto'>
           <button
             onClick={openModal}
-            className={cn(
-              'w-full py-[12px] px-0 rounded-[22px] bg-[#111827] text-white text-[14px] font-medium flex items-center justify-center gap-1.5',
-              'hover:bg-[#1e293b] transition-colors duration-200',
-              'group-data-[state=collapsed]:!w-8 group-data-[state=collapsed]:!h-8 group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:!px-0 group-data-[state=collapsed]:!py-0 group-data-[state=collapsed]:rounded-[10px] group-data-[state=collapsed]:group-hover:!w-[calc(100%-16px)] group-data-[state=collapsed]:group-hover:mx-[8px] group-data-[state=collapsed]:group-hover:rounded-[22px] group-data-[state=collapsed]:group-hover:!px-[14px]'
-            )}
+            className='w-full h-10 px-0 rounded-[22px] bg-[#111827] text-white text-[14px] font-medium flex items-center justify-center hover:bg-[#1e293b] transition-all duration-200 sb-item overflow-hidden'
           >
-            <Crown
-              className='h-[18px] w-[18px] text-white shrink-0 hidden group-data-[state=collapsed]:block group-data-[state=collapsed]:group-hover:hidden'
-              strokeWidth={1.5}
-            />
-            <span className='whitespace-nowrap group-data-[state=collapsed]:hidden group-data-[state=collapsed]:group-hover:block'>
+            <div className='w-8 h-8 flex items-center justify-center shrink-0 sb-upgrade-crown'>
+              <Crown
+                className='h-[18px] w-[18px] text-white shrink-0'
+                strokeWidth={1.5}
+              />
+            </div>
+            <span className='whitespace-nowrap flex-1 text-center transition-all duration-200 sb-upgrade-text'>
               Upgrade
             </span>
+            <div className="w-8 shrink-0 sb-upgrade-text"></div>
           </button>
         </div>
 
@@ -522,28 +563,16 @@ export function AppSidebar() {
             <SidebarMenuButton
               asChild
               tooltip={'Help Center'}
-              className={cn(
-                'flex items-center gap-3 h-9 rounded-lg py-1.5 px-2 text-sm font-medium',
-                'text-[#4B5563] hover:bg-[#F9FAFB] hover:text-[#111827]',
-                'group-data-[state=collapsed]:!w-8 group-data-[state=collapsed]:!h-8 group-data-[state=collapsed]:!p-0 group-data-[state=collapsed]:!gap-0 group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:justify-center',
-                'group-hover:group-data-[state=collapsed]:!w-[calc(100%-16px)] group-hover:group-data-[state=collapsed]:mx-[8px] group-hover:group-data-[state=collapsed]:!px-2 group-hover:group-data-[state=collapsed]:!py-1.5 group-hover:group-data-[state=collapsed]:!gap-3 group-hover:group-data-[state=collapsed]:justify-start'
-              )}
+              className='flex items-center w-full h-9 rounded-lg py-1.5 px-2 text-sm font-medium text-[#4B5563] hover:bg-[#F9FAFB] hover:text-[#111827] transition-all duration-200 sb-item overflow-hidden'
             >
               <Link
                 to='/help-center'
-                className={cn(
-                  'flex items-center w-full group/link',
-                  'group-data-[state=collapsed]:justify-center group-hover:group-data-[state=collapsed]:justify-start'
-                )}
+                className='flex items-center w-full gap-2 transition-all duration-200'
               >
-                <div className='w-8 h-8 flex items-center justify-center shrink-0 group-data-[state=collapsed]:w-full'>
+                <div className='w-8 h-8 flex items-center justify-center shrink-0'>
                   <HelpCircle className='h-[18px] w-[18px] text-[#6B7280] shrink-0' strokeWidth={1.5} />
                 </div>
-                <span className={cn(
-                  'transition-all duration-200 whitespace-nowrap overflow-hidden',
-                  'group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0',
-                  'group-data-[state=collapsed]:group-hover:w-auto group-data-[state=collapsed]:group-hover:opacity-100 group-data-[state=collapsed]:group-hover:delay-0'
-                )}>
+                <span className='transition-all duration-200 whitespace-nowrap overflow-hidden sb-text'>
                   Help Center
                 </span>
               </Link>
@@ -555,23 +584,14 @@ export function AppSidebar() {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
                   tooltip={'Account'}
-                  className={cn(
-                    'h-9 rounded-lg py-1.5 px-2 text-sm font-medium transition-colors duration-200 flex items-center gap-3',
-                    'text-[#111827] bg-white hover:bg-[#E5E7EB] data-[state=open]:bg-[#E5E7EB]',
-                    'group-data-[state=collapsed]:!w-8 group-data-[state=collapsed]:!h-8 group-data-[state=collapsed]:!p-0 group-data-[state=collapsed]:!gap-0 group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:justify-center',
-                    'group-hover:group-data-[state=collapsed]:!w-[calc(100%-16px)] group-hover:group-data-[state=collapsed]:mx-[8px] group-hover:group-data-[state=collapsed]:!px-2 group-hover:group-data-[state=collapsed]:!py-1.5 group-hover:group-data-[state=collapsed]:!gap-3 group-hover:group-data-[state=collapsed]:justify-start'
-                  )}
+                  className='h-9 rounded-lg py-1.5 px-2 text-sm font-medium transition-all duration-200 flex items-center w-full bg-transparent hover:bg-[#E5E7EB] data-[state=open]:bg-[#E5E7EB] text-[#111827] sb-item overflow-hidden'
                 >
-                  <div className='w-8 h-8 flex items-center justify-center shrink-0 group-data-[state=collapsed]:w-full'>
+                  <div className='w-8 h-8 flex items-center justify-center shrink-0'>
                     <div className='flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#005596] text-white text-[11px] font-bold'>
                       M
                     </div>
                   </div>
-                  <span className={cn(
-                    'transition-all duration-200 whitespace-nowrap overflow-hidden',
-                    'group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0',
-                    'group-data-[state=collapsed]:group-hover:w-auto group-data-[state=collapsed]:group-hover:opacity-100 group-data-[state=collapsed]:group-hover:delay-0'
-                  )}>
+                  <span className='transition-all duration-200 whitespace-nowrap overflow-hidden sb-text'>
                     Account
                   </span>
                 </SidebarMenuButton>
@@ -605,5 +625,6 @@ export function AppSidebar() {
       {/* SidebarRail only on Plans — allows toggling collapse only there */}
       {href.includes('/plans') && <SidebarRail />}
     </Sidebar>
+    </>
   )
 }

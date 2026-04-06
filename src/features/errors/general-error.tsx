@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 
 type GeneralErrorProps = React.HTMLAttributes<HTMLDivElement> & {
   minimal?: boolean
-  error?: any
+  error?: { message?: string; stack?: string }
 }
 
 export function GeneralError({

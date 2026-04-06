@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   AlignCenter,
   AlignLeft,
@@ -738,6 +738,18 @@ function PitchEditor({ deck, onClose, onSave }: { deck: PitchDeck; onClose: () =
   type DragHandle = 'move' | 'nw' | 'ne' | 'sw' | 'se' | 'n' | 's' | 'e' | 'w' | 'rotate'
   const [dragState, setDragState] = useState<{ handle: DragHandle; elId: string; startX: number; startY: number; origX: number; origY: number; origW: number; origH: number } | null>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
+  const [canvasRect, setCanvasRect] = useState<{ offsetLeft: number; offsetTop: number; offsetWidth: number; offsetHeight: number } | null>(null)
+
+  useEffect(() => {
+    const el = canvasRef.current
+    if (!el) return
+    const update = () => setCanvasRect({ offsetLeft: el.offsetLeft, offsetTop: el.offsetTop, offsetWidth: el.offsetWidth, offsetHeight: el.offsetHeight })
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [selectedElId])
+
   const selectedEl = selectedElId ? currentSlide?.elements?.find(e => e.id === selectedElId) ?? null : null
 
   function updateSlideElements(newElements: SlideElement[]) {
@@ -881,13 +893,14 @@ function PitchEditor({ deck, onClose, onSave }: { deck: PitchDeck; onClose: () =
     window.addEventListener('keydown', h); return () => window.removeEventListener('keydown', h)
   })
 
-  const rightPanelButtons: { Icon: typeof Paintbrush; label: string; action: () => void }[] = [
+  const rightPanelButtons = useMemo<{ Icon: typeof Paintbrush; label: string; action: () => void }[]>(() => [
     { Icon: Paintbrush, label: 'Theme', action: () => toggleRightPanel('theme') },
     { Icon: LayoutGrid, label: 'Layouts', action: () => toggleRightPanel('layouts') },
     { Icon: RefreshCw, label: 'Randomize', action: handleRandomizeColor },
     { Icon: Keyboard, label: 'Shortcuts', action: () => setShortcutsOpen(true) },
     { Icon: Sliders, label: 'Adjustments', action: () => toggleRightPanel('adjustments') },
-  ]
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  ], [])
 
   return (
     <>
@@ -1077,8 +1090,8 @@ function PitchEditor({ deck, onClose, onSave }: { deck: PitchDeck; onClose: () =
                         <FormatToolbar el={selectedEl} onChange={(u) => updateElement(selectedEl.id, u)} onDelete={deleteSelectedElement} />
                       </div>
                     </div>
-                    {canvasRef.current && (
-                      <div className='hidden md:block pointer-events-auto absolute z-30' style={{ left: canvasRef.current.offsetLeft + (canvasRef.current.offsetWidth * (selectedEl.x / 100)), top: canvasRef.current.offsetTop + (canvasRef.current.offsetHeight * (Math.max(0, selectedEl.y - 12) / 100)) }} onClick={e => e.stopPropagation()}>
+                    {canvasRect && (
+                      <div className='hidden md:block pointer-events-auto absolute z-30' style={{ left: canvasRect.offsetLeft + (canvasRect.offsetWidth * (selectedEl.x / 100)), top: canvasRect.offsetTop + (canvasRect.offsetHeight * (Math.max(0, selectedEl.y - 12) / 100)) }} onClick={e => e.stopPropagation()}>
                         <FormatToolbar el={selectedEl} onChange={(u) => updateElement(selectedEl.id, u)} onDelete={deleteSelectedElement} />
                       </div>
                     )}
@@ -1100,8 +1113,8 @@ function PitchEditor({ deck, onClose, onSave }: { deck: PitchDeck; onClose: () =
                       <button aria-label='Delete element' onClick={deleteSelectedElement} className='shrink-0 rounded p-2 text-red-500 hover:bg-red-50'><Trash2 className='h-5 w-5' /></button>
                     </div>
                     
-                    {canvasRef.current && (
-                      <div className='hidden md:flex pointer-events-auto absolute z-30 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-1 shadow-xl' style={{ left: canvasRef.current.offsetLeft + (canvasRef.current.offsetWidth * (selectedEl.x / 100)), top: canvasRef.current.offsetTop + (canvasRef.current.offsetHeight * (Math.max(0, selectedEl.y - 14) / 100)) }} onClick={e => e.stopPropagation()}>
+                    {canvasRect && (
+                      <div className='hidden md:flex pointer-events-auto absolute z-30 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-1 shadow-xl' style={{ left: canvasRect.offsetLeft + (canvasRect.offsetWidth * (selectedEl.x / 100)), top: canvasRect.offsetTop + (canvasRect.offsetHeight * (Math.max(0, selectedEl.y - 14) / 100)) }} onClick={e => e.stopPropagation()}>
                         {selectedEl.type === 'shape' && <input type='color' value={selectedEl.fillColor || '#9ca3af'} onChange={(e) => updateElement(selectedEl.id, { fillColor: e.target.value })} className='h-6 w-6 cursor-pointer rounded border-0 p-0' aria-label='Shape color' />}
                         <button aria-label='Toggle shadow' onClick={() => updateElement(selectedEl.id, { shadow: !selectedEl.shadow })} className={cn('rounded p-1 text-gray-500 hover:bg-gray-100', selectedEl.shadow && 'bg-purple-100 text-purple-600')} title='Shadow'>
                           <Layers className='h-3.5 w-3.5' />

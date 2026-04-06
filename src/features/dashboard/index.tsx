@@ -5,7 +5,7 @@ import { Header } from '@/components/layout/header'
 import { Link } from '@tanstack/react-router'
 
 // Hardcoded static data - change these values to update the page
-const HARDCODED_USER_NAME = 'MUXAMMAD'
+const USER_NAME = 'MUXAMMAD'
 
 // ─── Thumbnails ───────────────────────────────────────────────────────────────
 
@@ -333,7 +333,7 @@ export function Dashboard() {
         <div className='max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-0 pb-8 sm:pb-12'>
         {/* Welcome — hardcoded user name from HARDCODED_USER_NAME constant */}
         <h1 className='text-[20px] sm:text-[26px] font-normal text-gray-900 mb-4'>
-          Welcome {HARDCODED_USER_NAME}
+          Welcome {USER_NAME}
         </h1>
 
         {/* Upgrade Banner */}

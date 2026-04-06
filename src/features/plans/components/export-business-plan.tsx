@@ -362,9 +362,16 @@ export function EditOutlineModal({
   const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [draggedItem, setDraggedItem] = useState<{ sectionId: string; itemIndex: number } | null>(null);
 
-  useEffect(() => {
-    if (isOpen) setSections(initialSections);
-  }, [isOpen, initialSections]);
+  // Reset sections when the modal opens without calling setState inside an effect
+  /* eslint-disable react-hooks/refs */
+  const prevIsOpen = useRef(isOpen);
+  if (prevIsOpen.current !== isOpen) {
+    prevIsOpen.current = isOpen;
+    if (isOpen) {
+      setSections(initialSections);
+    }
+  }
+  /* eslint-enable react-hooks/refs */
 
   const handleStartRename = (itemId: string, currentLabel: string) => {
     setEditingItem(itemId);
@@ -398,8 +405,11 @@ export function EditOutlineModal({
     onClose();
   };
 
+  const idCounterRef = useRef(0);
+
   const handleAddSection = (sectionId: string) => {
-    const newId = `new-${Date.now()}`;
+    idCounterRef.current += 1;
+    const newId = `new-${idCounterRef.current}`;
     setSections(prev =>
       prev.map(s =>
         s.id === sectionId

@@ -1,5 +1,5 @@
 import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar'
-import { ExportBusinessPlanModal, EditOutlineModal, DEFAULT_PALETTES, FONT_OPTIONS, type ExportConfig } from './components/export-business-plan'
+import { ExportBusinessPlanModal, EditOutlineModal, DEFAULT_PALETTES, FONT_OPTIONS, type ExportConfig, CoverPage } from './components/export-business-plan'
 import { cn } from '@/lib/utils'
 import { Link } from '@tanstack/react-router'
 import {
@@ -521,13 +521,19 @@ function DocumentSection({
         {/* LEFT — Cover Page Card */}
         <div
           onClick={onOpenExport}
-          className='w-[300px] h-[440px] flex-shrink-0 rounded-xl border border-gray-200 overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 to-white'
+          className='w-[300px] h-[440px] flex-shrink-0 rounded-xl border border-gray-200 overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative flex items-center justify-center bg-gray-50'
         >
-          <div className='w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4 text-indigo-600'>
-             <Eye className='w-8 h-8' />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-[1.01] origin-center -translate-y-[1px]">
+            <CoverPage 
+              colors={_exportConfig.palette} 
+              layout={_exportConfig.layout} 
+              formData={_exportConfig.formData} 
+              font={_exportConfig.font} 
+              logoUrl={_exportConfig.logoUrl} 
+              scale={1.36}
+              showDetails={false}
+            />
           </div>
-          <h3 className='font-bold text-gray-800 text-lg'>Cover Page</h3>
-          <p className='text-gray-500 text-sm mt-2 max-w-[200px] text-center'>Click to preview and export your business plan</p>
         </div>
 
         {/* RIGHT — Table of Contents Card */}
