@@ -1,4 +1,5 @@
 import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar'
+import { useUpgradeStore } from '@/stores/upgrade-store'
 import { ExportBusinessPlanModal, EditOutlineModal, DEFAULT_PALETTES, FONT_OPTIONS, type ExportConfig, CoverPage } from './components/export-business-plan'
 import { cn } from '@/lib/utils'
 import { Link } from '@tanstack/react-router'
@@ -517,7 +518,9 @@ function DocumentSection({
       </div>
 
       {/* Cards row */}
-      <div className='flex gap-6 items-start'>
+      {/* Cards row */}
+      <div className='flex overflow-x-auto -mx-6 px-6 sm:mx-0 sm:px-0 pb-4 sm:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+        <div className='flex gap-6 items-start w-max sm:w-auto'>
         {/* LEFT — Cover Page Card */}
         <div
           onClick={onOpenExport}
@@ -567,6 +570,7 @@ function DocumentSection({
               ))}
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -1216,7 +1220,7 @@ export function BusinessPlanDashboard() {
       setPlanView('item')
     }
   }
-  const openModal = () => {}
+  const { openModal } = useUpgradeStore()
   const handleLockedAction = (e?: React.MouseEvent) => {
     if (e?.stopPropagation) e.stopPropagation()
     setShowLockedModal(true)

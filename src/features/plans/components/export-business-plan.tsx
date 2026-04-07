@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useUpgradeStore } from '@/stores/upgrade-store';
 
 export interface IPalette {
   bg: string;
@@ -355,6 +356,7 @@ export function EditOutlineModal({
   onClose: () => void;
   sections: OutlineSection[];
 }) {
+  const { openModal } = useUpgradeStore();
   const [sections, setSections] = useState<OutlineSection[]>(initialSections);
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
@@ -469,7 +471,7 @@ export function EditOutlineModal({
               <span style={{ fontWeight: 600, fontSize: 13, color: "#111" }}>Pro</span>
               <span style={{ fontSize: 13, color: "#666" }}>Upgrade to edit outline.</span>
             </div>
-            <button onClick={() => {}} style={{ background: "#111", color: "#fff", border: "none", borderRadius: 8, padding: "8px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}>✦ Upgrade</button>
+            <button onClick={() => { onClose(); openModal(); }} style={{ background: "#111", color: "#fff", border: "none", borderRadius: 8, padding: "8px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}>✦ Upgrade</button>
           </div>
         </div>
 
@@ -665,6 +667,7 @@ export function EditOutlineModal({
 }
 
 export function ExportBusinessPlanModal({ isOpen, onClose, onConfigChange }: { isOpen: boolean; onClose: () => void; onConfigChange?: (config: ExportConfig) => void }) {
+  const { openModal } = useUpgradeStore();
   const [activeTab, setActiveTab] = useState("theme");
   const [selectedPalette, setSelectedPalette] = useState(0);
   const [palettes, setPalettes] = useState<IPalette[]>(DEFAULT_PALETTES);
@@ -763,7 +766,7 @@ export function ExportBusinessPlanModal({ isOpen, onClose, onConfigChange }: { i
               <span style={{ fontWeight: 600, fontSize: 13, color: "#111" }}>Pro feature</span>
               <span style={{ fontSize: 13, color: "#666" }}>Upgrade to export.</span>
             </div>
-            <button onClick={() => {}} style={{ background: "#111", color: "#fff", border: "none", borderRadius: 8, padding: "8px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}>✦ Upgrade</button>
+            <button onClick={() => { onClose(); openModal(); }} style={{ background: "#111", color: "#fff", border: "none", borderRadius: 8, padding: "8px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}>✦ Upgrade</button>
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 border border-[#e5e7eb] rounded-[10px] p-[11px_16px] mb-3 flex-wrap">
             <span className="font-semibold text-[14px] leading-tight text-[#111]">Innovatech Academy Business Plan</span>
